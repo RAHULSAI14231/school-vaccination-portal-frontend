@@ -1,0 +1,40 @@
+<div class="pagination-wrapper">
+  <div class="pagination">
+    <div class="prev">
+      <button
+        class="prev-btn"
+        [disabled]="isPreviousDisabled()"
+        (click)="onClickPrev()"
+      >
+        << Previous
+      </button>
+    </div>
+    <input
+      id="page-number"
+      class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block p-2.5"
+      [(ngModel)]="currentPage"
+      (change)="onCurrentPageChange()"
+    />
+    <div class="next">
+      <button
+        class="next-btn"
+        [disabled]="isNextDisabled()"
+        (click)="onClickNext()"
+      >
+        Next >>
+      </button>
+    </div>
+  </div>
+  <div class="no-of-items-container">
+    <span>Number of items per page: </span>
+    <select
+      id="itemsPerPage"
+      [(ngModel)]="itemsPerPage"
+      (change)="onPageLimitChange($event)"
+    >
+      <option *ngFor="let data of itemsPerPageArray" [ngValue]="data">
+        {{ data }}
+      </option>
+    </select>
+  </div>
+</div>

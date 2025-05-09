@@ -1,0 +1,21 @@
+<ng-container *ngIf="isAuthenticated">
+  <app-header></app-header>
+
+  <div class="user-name">
+    Welcome {{ currentUser?.firstName }} {{ currentUser?.lastName }},
+  </div>
+
+  <div class="tabs-container-wrapper">
+    <div class="tabs-container">
+      <div
+        class="tab"
+        *ngFor="let tab of tabList"
+        [class.active]="tab.isActive"
+        (click)="onTabChange(tab)"
+      >
+        {{ tab.label }}
+      </div>
+    </div>
+  </div>
+</ng-container>
+<router-outlet></router-outlet>

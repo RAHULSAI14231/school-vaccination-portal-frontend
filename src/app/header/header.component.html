@@ -1,0 +1,36 @@
+<header class="header">
+  <span
+    (click)="navigateToHome()"
+    class="flex items-center sm:mb-0 text-decoration-none cursor-pointer"
+  >
+    <img
+      src="../../assets/images/app-logo.jpeg"
+      class="h-8 mr-3"
+      alt="Flowbite Logo"
+    />
+    <span class="self-center text-2xl font-semibold whitespace-nowrap"
+      >School Vaccination Portal</span
+    >
+  </span>
+  <ul
+    class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-600 sm:mb-0"
+  >
+    <div class="avatar-container">
+      <div class="avatar" (click)="toggleDropdown()">
+        <span>{{ avatar }}</span>
+      </div>
+
+      <!-- Dropdown Menu -->
+      <div
+        class="dropdown"
+        *ngIf="dropdownVisible"
+        (click)="preventClose($event)"
+      >
+        <ul>
+          <li><a>Profile</a></li>
+          <li (click)="onLogOut()"><a>Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </ul>
+</header>

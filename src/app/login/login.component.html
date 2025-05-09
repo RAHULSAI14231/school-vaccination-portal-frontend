@@ -1,0 +1,77 @@
+<div class="login-wrapper">
+  <div class="left-section">
+    <div class="title-section">
+      <div style="font-size: 2rem">Welcome to</div>
+      <div style="font-size: 4rem">School Vaccination Portal</div>
+      <p style="font-size: 1.5rem">
+        A platform for scheduling Vaccination Drives
+      </p>
+    </div>
+    <div class="form-section" style="margin-bottom: 1rem">
+      <form [formGroup]="loginForm">
+        <div style="margin-bottom: 1rem">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium"
+            style="margin-bottom: 0.5rem"
+            >Email
+            <span class="text-red-500 text-sm" style="vertical-align: top"
+              >*</span
+            >
+          </label>
+          <input
+            id="email"
+            [ngClass]="{
+              'ring-1 ring-red-500':
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+            (change)="onLoginFormChange()"
+            formControlName="email"
+            placeholder="Please enter email"
+          />
+        </div>
+
+        <div style="margin-bottom: 1rem">
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium"
+            style="margin-bottom: 0.5rem"
+            >Password
+            <span class="text-red-500 text-sm" style="vertical-align: top"
+              >*</span
+            ></label
+          >
+          <input
+            type="password"
+            [ngClass]="{
+              'ring-1 ring-red-500':
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+            }"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+            (change)="onLoginFormChange()"
+            id="password"
+            formControlName="password"
+            placeholder="Please enter password"
+          />
+        </div>
+
+        <div style="margin-bottom: 1rem" *ngIf="requiredFieldsError">
+          <small>Please enter valid email or password</small>
+        </div>
+
+        <button
+          class="submit-btn"
+          type="submit"
+          [disabled]="!loginForm.valid || requiredFieldsError"
+          (click)="validateForm()"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="right-section"></div>
+</div>

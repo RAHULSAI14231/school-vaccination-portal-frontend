@@ -1,0 +1,57 @@
+.login-wrapper{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    .left-section{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+        background-color: #EED9C4;
+        padding: 0 2rem;
+        .title-section{
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            color: #2D2D2D !important;
+        }
+
+        .form-section{
+            width: 42rem;
+
+            input {
+                width: 100%;
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            
+            small {
+                color: red;
+            }
+            
+            .submit-btn{
+                padding: 8px;
+                width: 5rem;
+                font-size: 0.875rem;
+                background-color: #0DBE5E;
+                color: #FFFFFF;
+                border-radius: 4px;
+                cursor: pointer;
+                &:disabled{
+                    color: black;
+                    background: #DEDEDE;
+                    cursor: not-allowed;
+                }
+            }
+
+            .reset-password{
+                color: red;
+                font-size: 0.75rem;
+                cursor: pointer;
+            }
+        }
+    }
+}

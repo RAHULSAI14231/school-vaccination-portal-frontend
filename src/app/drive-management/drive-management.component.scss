@@ -1,0 +1,33 @@
+.drive-mgmt-wrapper {
+    margin: 2rem 1rem;
+    .drive-mgmt-label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+    }
+    .drive-mgmt-actions{
+      justify-self: flex-end;
+      margin: 1rem 0;
+    }
+    .drive-mgmt-table {
+      margin: 1rem 0;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+  
+        th {
+          padding: 0.5rem 1rem;
+          background-color: #f2f2f2;
+          text-align: left;
+        }
+        td {
+          padding: 0.5rem 1rem;
+        }
+      }
+      .edit-icon{
+        cursor: pointer;
+      }
+    }
+  }
+  
