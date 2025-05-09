@@ -21,7 +21,6 @@ export class LayoutComponent {
     constructor(private authService: AuthService, private router: Router, private utilService: UtilService){}
   
     ngOnInit(){
-      console.log(this.isAuthenticated)
       this.isAuthenticated = this.authService.isAuthenticated();
       this.currentUser = this.authService.getUser();
       

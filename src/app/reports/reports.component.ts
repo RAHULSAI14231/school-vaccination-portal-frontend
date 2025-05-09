@@ -31,7 +31,6 @@ export class ReportsComponent {
   getPaginationUpdates(): void {
     this.utilService.paginationSubject.subscribe((res: any) => {
       if (res) {
-        console.log(res);
         this.currentPage = res.page;
         this.offset = (res.page - 1) * this.itemsPerPage;
         this.itemsPerPage = res.limit;
@@ -42,7 +41,6 @@ export class ReportsComponent {
   
   getReportsList(): void{
     this.apiService.get('student', SchoolVaccinationPortalApis.getReports(this.itemsPerPage, this.offset)).subscribe((res: any) => {
-      console.log(res);
       this.reports = res?.data;
       this.utilService.paginationConfigSubject.next({
         totalPages: Math.ceil(res?.total / this.itemsPerPage),

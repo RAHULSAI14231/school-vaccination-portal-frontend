@@ -40,7 +40,6 @@ export class LoginComponent {
         .post('auth', SchoolVaccinationPortalApis.login, this.loginForm.value)
         .subscribe(
           (res: any) => {
-            console.log(res);
             if (res?.success) {
               this.authService.setToken(res?.token);
               this.router.navigate(['/student-management']);

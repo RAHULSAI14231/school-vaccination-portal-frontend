@@ -16,7 +16,6 @@ export class PaginationComponent {
   constructor(private utilService: UtilService) {
     this.utilService.paginationConfigSubject
       .subscribe((res: any) => {
-        console.log(res)
         this.paginationConfig = res;
         this.currentPage = res?.currentPage;
       });

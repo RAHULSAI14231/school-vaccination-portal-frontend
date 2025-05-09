@@ -40,7 +40,6 @@ export class DriveManagementComponent {
   }
 
   ngOnInit() {
-    console.log(this.router.url);
     this.utilService.routeURLSubject.next(this.router.url);
     this.getDriveList();
   }
@@ -49,7 +48,6 @@ export class DriveManagementComponent {
     this.apiService
       .get('vaccine', SchoolVaccinationPortalApis.getDrives)
       .subscribe((res: any) => {
-        console.log(res);
         if (res) {
           this.drives = res?.data;
         }
@@ -57,7 +55,6 @@ export class DriveManagementComponent {
   }
 
   scheduleDrive(): void {
-    console.log('scheduleDrive');
     const modalElement = document.getElementById('scheduleDriveModal');
     if (modalElement) {
       const bootstrap = (window as any).bootstrap;
@@ -73,7 +70,6 @@ export class DriveManagementComponent {
   }
 
   closeDriveModal(): void {
-    console.log('closeDriveModal');
     if (this.driveModalInstance) {
       this.driveModalInstance.hide();
       this.driveForm.reset();
@@ -84,7 +80,6 @@ export class DriveManagementComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      console.log('File selected:', this.selectedFile);
     }
   }
 
@@ -148,7 +143,6 @@ export class DriveManagementComponent {
     const dirtyValues: any = {};
 
     Object.keys(formGroup.controls).forEach((key) => {
-      console.log(key);
       const control = formGroup.get(key);
       if (control?.dirty) {
         dirtyValues[key] = control.value;

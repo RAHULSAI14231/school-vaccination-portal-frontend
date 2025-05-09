@@ -50,7 +50,6 @@ export class StudentManagementComponent {
   }
 
   ngOnInit() {
-    console.log(this.router.url);
     this.utilService.routeURLSubject.next(this.router.url);
     this.getStudentStats();
     this.getStudentList();
@@ -60,7 +59,6 @@ export class StudentManagementComponent {
     this.apiService
       .get('student', SchoolVaccinationPortalApis.studentStats)
       .subscribe((res) => {
-        console.log(res);
         this.studentStats = res;
       });
   }
@@ -93,13 +91,7 @@ export class StudentManagementComponent {
       );
     }
     this.apiService.get('student',apiUrl).subscribe((res: any) => {
-      console.log(res);
       this.students = res?.data;
-      console.log(
-        res.total,
-        this.itemsPerPage,
-        Math.ceil(res.total / this.itemsPerPage)
-      );
       this.utilService.paginationConfigSubject.next({
         totalPages: Math.ceil(res?.total / this.itemsPerPage),
         currentPage: this.currentPage,
@@ -110,7 +102,6 @@ export class StudentManagementComponent {
   addStudent(mode: any): void {
     let modalComponent = document.getElementById('addStudentModal');
     if (modalComponent) {
-      console.log(mode);
       const bootstrap = (window as any).bootstrap;
       this.studentModalInstance = new bootstrap.Modal(modalComponent);
       this.studentModalInstance.show();
@@ -121,7 +112,6 @@ export class StudentManagementComponent {
     this.apiService
       .get('student',SchoolVaccinationPortalApis.generateReport)
       .subscribe((res: any) => {
-        console.log(res);
         const originalUrl = res?.file;
         const updatedUrl = originalUrl.replace('minio-school', 'localhost');
         const link = document.createElement('a');
@@ -134,13 +124,13 @@ export class StudentManagementComponent {
 
   closeAddStudentModal(): void {
     if (this.studentModalInstance) {
+      this.studentID = '';
       this.studentModalInstance.hide();
       this.studentForm.reset();
     }
   }
 
   editStudent(student: any): void {
-    console.log(student);
     this.studentID = student.id;
     this.studentForm.patchValue(student);
     this.addStudent('open');
@@ -149,7 +139,6 @@ export class StudentManagementComponent {
   getPaginationUpdates(): void {
     this.utilService.paginationSubject.subscribe((res: any) => {
       if (res) {
-        console.log(res);
         this.currentPage = res.page;
         this.offset = (res.page - 1) * this.itemsPerPage;
         this.itemsPerPage = res.limit;
@@ -159,13 +148,13 @@ export class StudentManagementComponent {
   }
 
   vaccinateStudent(student: any): void {
-    console.log(student);
     this.selectedStudent = student;
     if (!student.vaccination) {
       const modalElement = document.getElementById('studentVaccinateModal');
       if (modalElement) {
         const bootstrap = (window as any).bootstrap;
         this.studentVaccinateModalInstance= new bootstrap.Modal(modalElement);
+        this.studentVaccinateModalInstance.show();
       }
     }
   }
@@ -185,7 +174,6 @@ export class StudentManagementComponent {
     this.apiService
       .post('student',SchoolVaccinationPortalApis.updateStudentVaccinationStatus, res)
       .subscribe((res: any) => {
-        console.log(res);
         this.closeVaccineStudentModal();
       });
   }
@@ -199,9 +187,11 @@ export class StudentManagementComponent {
       this.apiService
         .post('student',SchoolVaccinationPortalApis.bulkCreateStudentRecords, formData)
         .subscribe((res: any) => {
-          console.log(res);
           if (res?.success) {
-            console.log('File selected:', this.selectedFile);
+            this.notificationService.success(
+              'Student Records Uploaded Successfully',
+              'Success'
+            );
           }
         });
     }
@@ -213,14 +203,16 @@ export class StudentManagementComponent {
       this.selectedFile = input.files[0];
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-      console.log('File selected:', this.selectedFile);
 
       this.apiService
         .post('student',SchoolVaccinationPortalApis.bulkUpdateVaccineRecords, formData)
         .subscribe((res: any) => {
-          console.log(res);
           if (res?.success) {
-            console.log('File selected:', this.selectedFile);
+            this.notificationService.success(
+              'Vaccination Records Uploaded Successfully',
+              'Success'
+            );
+            this.getStudentList();
           }
         });
     }
@@ -243,13 +235,11 @@ export class StudentManagementComponent {
   }
 
   onSubmit() {
-    console.log(this.studentForm.value);
     if (this.studentForm.valid) {
       let requestObj = {
         id: this.studentID,
         ...this.studentForm.value,
       };
-      console.log('ID', this.studentID);
       this.studentID
         ? this.apiService
             .patch('student',SchoolVaccinationPortalApis.addStudent, requestObj)
@@ -301,7 +291,6 @@ export class StudentManagementComponent {
   }
 
   checkValidity() {
-    console.log(this.studentForm.value);
     return !this.studentForm.valid;
   }
 }
